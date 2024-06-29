@@ -11,45 +11,34 @@
         <div class="hand minute" id="minuteHand"></div>
         <div class="hand second" id="secondHand"></div>
         <div class="center-dot"></div>
+        
+        <div class="marking quarter" style="transform: translateX(-50%) rotate(0deg);"></div>
+        <div class="marking" style="transform: translateX(-50%) rotate(30deg);"></div>
+        <div class="marking" style="transform: translateX(-50%) rotate(60deg);"></div>
+        <div class="marking quarter" style="transform: translateX(-50%) rotate(90deg);"></div>
+        <div class="marking" style="transform: translateX(-50%) rotate(120deg);"></div>
+        <div class="marking" style="transform: translateX(-50%) rotate(150deg);"></div>
+        <div class="marking quarter" style="transform: translateX(-50%) rotate(180deg);"></div>
+        <div class="marking" style="transform: translateX(-50%) rotate(210deg);"></div>
+        <div class="marking" style="transform: translateX(-50%) rotate(240deg);"></div>
+        <div class="marking quarter" style="transform: translateX(-50%) rotate(270deg);"></div>
+        <div class="marking" style="transform: translateX(-50%) rotate(300deg);"></div>
+        <div class="marking" style="transform: translateX(-50%) rotate(330deg);"></div>
+
+        <div class="number" style="left: 143px; top: 60px;">12</div>
+        <div class="number" style="left: 223px; top: 140px;">3</div>
+        <div class="number" style="left: 146px; top: 220px;">6</div>
+        <div class="number" style="left: 63px; top: 140px;">9</div>
     </div>
 </body>
 </html>
+
 
 <script>
 const clock = document.querySelector('.clock');
 const hourHand = document.querySelector('.hour');
 const minuteHand = document.querySelector('.minute');
 const secondHand = document.querySelector('.second');
-
-function createpoints() {
-    for (let i = 0; i < 12; i++) {
-        const marking = document.createElement('div');
-        marking.className = 'marking';
-        
-        if (i % 3 === 0) {
-            marking.classList.add('quarter');
-            
-            if (i === 0 || i === 3 || i === 6 || i === 9) {
-                const number = document.createElement('div');
-                number.className = 'number';
-                number.textContent = i === 0 ? '12' : i.toString();
-                
-                const angle = i * 30 * (Math.PI / 180);
-                const radius = 80; 
-                const left = 143 + radius * Math.sin(angle);
-                const top = 140 - radius * Math.cos(angle);
-                
-                number.style.left = `${left}px`;
-                number.style.top = `${top}px`;
-                
-                clock.appendChild(number);
-            }
-        }
-        
-        marking.style.transform = `translateX(-50%) rotate(${i * 30}deg)`;
-        clock.appendChild(marking);
-    }
-}
 
 function updateClockHands() {
     const now = new Date();
@@ -69,12 +58,11 @@ function updateClockHands() {
 }
 
 function alarmclock() {
-    createpoints();
     updateClockHands();
     setInterval(updateClockHands, 1000);
 }
 
-alarmclock(); 
+alarmclock();
 </script>
 
 <style>
@@ -91,11 +79,11 @@ body {
     width: 300px;
     height: 300px;
     border-radius: 50%;
-    background-color: #2a2a2a; 
+    background-color: #2a2a2a;
     position: relative;
-    box-shadow: 0px 0px 0px rgba(0, 0, 0, 0.5), 
-                4px 4px 10px rgba(0, 0, 0, 0.5), 
-                inset 0px -5px 10px rgba(0, 0, 0, 0.2); 
+    box-shadow: 0px 0px 0px rgba(0, 0, 0, 0.5),
+                4px 4px 10px rgba(0, 0, 0, 0.5),
+                inset 0px -5px 10px rgba(0, 0, 0, 0.2);
 }
 
 .clock::before {
@@ -106,8 +94,8 @@ body {
     right: 10px;
     bottom: 10px;
     border-radius: 50%;
-    background-color: #222; 
-    box-shadow: inset 3px 3px 8px rgba(0, 0, 0, 0.5); 
+    background-color: #222;
+    box-shadow: inset 3px 3px 8px rgba(0, 0, 0, 0.5);
 }
 
 .hand {
@@ -122,28 +110,28 @@ body {
     width: 4px;
     height: 20%;
     border-radius: 25%;
-    background-color: #87ceeb; 
+    background-color: #87ceeb;
 }
 
 .minute {
     width: 3px;
     height: 25%;
     border-radius: 25%;
-    background-color: #4891ad; 
+    background-color: #4891ad;
 }
 
 .second {
     width: 2px;
     height: 29%;
     border-radius: 25%;
-    background-color: #ff8c00; 
+    background-color: #ff8c00;
 }
 
 .marking {
     position: absolute;
     width: 3px;
     height: 25px;
-    background-color: #666; 
+    background-color: #666;
     left: 50%;
     top: 10%;
     transform-origin: 50% 120px;
@@ -152,8 +140,8 @@ body {
 }
 
 .marking.quarter {
-    background-color: #4dbaaa; 
-    height: 20px;
+    background-color: #4dbaaa;
+    height: 25px;
     width: 3px;
 }
 
@@ -161,7 +149,7 @@ body {
     position: absolute;
     width: 10px;
     height: 10px;
-    background-color: #4f3f5a; 
+    background-color: #4f3f5a;
     border-radius: 50%;
     top: 50%;
     left: 50%;
@@ -172,9 +160,10 @@ body {
 .number {
     position: absolute;
     font-size: 20px;
-    color: #4dbaaa;
-    z-index: 2;
+    color: #fff;
+    font-weight: bold;
 }
+
 </style>
 
 
