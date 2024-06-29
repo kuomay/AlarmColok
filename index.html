@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Analog Clock</title>
+    <title>Clock</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <div class="clock">
-        <div class="hand hour"></div>
-        <div class="hand minute"></div>
-        <div class="hand second"></div>
+        <div class="hand hour" id="hourHand"></div>
+        <div class="hand minute" id="minuteHand"></div>
+        <div class="hand second" id="secondHand"></div>
         <div class="center-dot"></div>
     </div>
     <script src="script.js"></script>
@@ -18,37 +18,50 @@
 </html>
 
 <script>
-function setTime() {
-    const now = new Date();
-    const seconds = now.getSeconds();
-    const minutes = now.getMinutes();
-    const hours = now.getHours() % 12;
+const clock = document.querySelector('.clock');
+const hourHand = document.querySelector('.hour');
+const minuteHand = document.querySelector('.minute');
+const secondHand = document.querySelector('.second');
 
-    const secondDegrees = (seconds / 60) * 360;
-    const minuteDegrees = ((minutes + seconds / 60) / 60) * 360;
-    const hourDegrees = ((hours + minutes / 60) / 12) * 360;
-
-    document.querySelector('.second').style.transform = `translateX(-50%) rotate(${secondDegrees}deg)`;
-    document.querySelector('.minute').style.transform = `translateX(-50%) rotate(${minuteDegrees}deg)`;
-    document.querySelector('.hour').style.transform = `translateX(-50%) rotate(${hourDegrees}deg)`;
-}
-
-function createMarkings() {
-    const clock = document.querySelector('.clock');
+function createpoints() {
     for (let i = 0; i < 12; i++) {
         const marking = document.createElement('div');
         marking.className = 'marking';
+        
+        // 1/4
         if (i % 3 === 0) {
             marking.classList.add('quarter');
         }
+        
         marking.style.transform = `translateX(-50%) rotate(${i * 30}deg)`;
         clock.appendChild(marking);
     }
 }
 
-createMarkings();
-setInterval(setTime, 1000);
-setTime(); 
+function updateClockHands() {
+    const now = new Date();
+    const seconds = now.getSeconds();
+    const minutes = now.getMinutes();
+    const hours = now.getHours() % 12;
+
+    // 計算角度
+    const secondDegrees = (seconds / 60) * 360;
+    const minuteDegrees = ((minutes + seconds / 60) / 60) * 360;
+    const hourDegrees = ((hours + minutes / 60) / 12) * 360;
+
+    // 指针位置
+    secondHand.style.transform = `translateX(-50%) rotate(${secondDegrees}deg)`;
+    minuteHand.style.transform = `translateX(-50%) rotate(${minuteDegrees}deg)`;
+    hourHand.style.transform = `translateX(-50%) rotate(${hourDegrees}deg)`;
+}
+
+function alarmclock() {
+    createpoints();
+    updateClockHands();
+    setInterval(updateClockHands, 1000);
+}
+
+alarmclock(); 
 </script>
 
 <style>
